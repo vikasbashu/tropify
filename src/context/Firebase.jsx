@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState} from "react";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -50,10 +50,17 @@ const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 const FirebaseContext = createContext(null);
 
-
 export const useFirebase = () => useContext(FirebaseContext);
 
 export const FirebaseProvider = (props) => {
+
+  const [user, setUser] = useState(null);
+  useEffect(()=>{
+    onAuthStateChanged(auth,(user)=>{
+       user ? setUser(user) : setUser(null);
+  });
+  },[]);  
+
   const signUpUserWithEmailAndPassword = async (email, password) => {
     return await createUserWithEmailAndPassword(auth, email, password);
   };
@@ -83,9 +90,8 @@ export const FirebaseProvider = (props) => {
     });
   }
   const userLoginStatus = () => {
-    onAuthStateChanged(auth,(user)=>{
-        return !user ? user : false;
-    });
+    if(user) return user;
+    else return null;
   }
   const writeDataInFireStore = async(key, data) => {
     await addDoc(collection(firestore, key), data);
@@ -120,6 +126,7 @@ export const FirebaseProvider = (props) => {
         loginUser,
         signUpWithGoogle,
         userLoginStatus,
+        onAuthStateChanged,
         signOut,
         writeDataInFireStore,
         getDocument,
