@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom"; 
 import { useFirebase } from "../context/Firebase";
-import { v4 as uuidv4 } from 'uuid';
+//import { v4 as uuidv4 } from 'uuid';
 
 export const AddListing = () => {
     
@@ -24,7 +24,6 @@ export const AddListing = () => {
             const fileStorage = await firebase.addDataInStorage("uploads/images", cover);
             const user = firebase.userLoginStatus();
             user && await firebase.writeDataInFireStore("books", {
-                id: uuidv4(),
                 name,
                 description,
                 price,
