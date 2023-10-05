@@ -17,7 +17,7 @@ export const HomePage = (props) => {
             <CardGroup>
             {
                 books.map((book)=>(
-                    <RecordCard key={book.id}{...book.data()}/>
+                    <RecordCard key={book.id} id={book.id} {...book.data()}/>
                 ))
             }
             </CardGroup>
