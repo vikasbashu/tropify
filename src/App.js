@@ -3,14 +3,22 @@ import {Routes, Route} from "react-router-dom";
 // pages
 import { RegisterPage } from "./pages/Register";
 import { LoginPage } from "./pages/Login";
+import { HomePage } from "./pages/Home";
+// components
+import { MyNavBar } from "./components/Navbar";
+import { AddListing } from "./pages/Listing";
 
 function App() {
   return (
-   <Routes>
-      <Route path="/" element={<h1>Home</h1>}/>
+   <div>
+    <MyNavBar/>
+    <Routes>
+      <Route path="/" element={<HomePage/>}/>
       <Route path="/login" element={<LoginPage/>}/>
       <Route path="/register" element={<RegisterPage/>}/>
+      <Route path="/book/addNew" element={<AddListing/>}/>
    </Routes>
+   </div>
   );
 }
 

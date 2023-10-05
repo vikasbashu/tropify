@@ -28,7 +28,12 @@ import {
     query,
     where,
     updateDoc
-} from "firebase/firestore"
+} from "firebase/firestore";
+import {getStorage,
+   ref as storageRef,
+    uploadBytes,
+  getDownloadURL
+} from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDDx2FIXbWkTRJLo3B45r5L4KQBVqhdMhY",
@@ -49,6 +54,8 @@ const firestore = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 const FirebaseContext = createContext(null);
+const storage = getStorage(app);
+
 
 export const useFirebase = () => useContext(FirebaseContext);
 
@@ -101,7 +108,7 @@ export const FirebaseProvider = (props) => {
     return snap.data();
   }
   const getDocumentsByQuery = async(key, condition) => {
-    const snap = await getDocs(query(collection(firestore, key), where(condition)));
+    const snap = await getDocs(query(collection(firestore, key), condition && where(condition)));
     return snap;
   }
   const updateDocumentRecord = async(key, docId, data) => {
@@ -117,6 +124,13 @@ export const FirebaseProvider = (props) => {
         snap = snapshot.val();
     })
     return snap;
+  }
+  const addDataInStorage = async (dir_path, data_file) => {
+    const uploadResult = await uploadBytes(storageRef(storage, `${dir_path}/${Date.now()}-${data_file}`), data_file);
+    return uploadResult;
+  }
+  const getStorageDataUrl = (path)=> {
+    return getDownloadURL(storageRef(storage, path));
   }
   return (
     <FirebaseContext.Provider
@@ -134,7 +148,9 @@ export const FirebaseProvider = (props) => {
         updateDocumentRecord,
         fetchDataFromRDB,
         fetchRealTimeData,
-        signUpWithGithub
+        signUpWithGithub,
+        addDataInStorage,
+        getStorageDataUrl
       }}
     >
       {props.children}
