@@ -6,6 +6,17 @@ import { CardGroup } from "react-bootstrap";
 export const HomePage = (props) => {
     const firebase = useFirebase();
     const [books, setBooks] = useState([]);
+
+    const requestPermission = async () => {
+        const permission = await Notification.requestPermission();
+        if(permission === 'granted'){
+            const token = await firebase.generateToken();
+            return token;
+        }
+    }
+    useEffect(()=>{
+        requestPermission().then((value)=> console.log(value));
+    }, []);
     useEffect(()=>{
         firebase.getDocumentsByQuery("books").then((books)=>{
             //console.log(books.docs[0].data());

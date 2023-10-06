@@ -34,6 +34,7 @@ import {getStorage,
     uploadBytes,
   getDownloadURL
 } from "firebase/storage";
+import {getMessaging, getToken} from "firebase/messaging";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDDx2FIXbWkTRJLo3B45r5L4KQBVqhdMhY",
@@ -55,6 +56,7 @@ const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 const FirebaseContext = createContext(null);
 const storage = getStorage(app);
+const messaging = getMessaging(app);
 
 
 export const useFirebase = () => useContext(FirebaseContext);
@@ -132,6 +134,9 @@ export const FirebaseProvider = (props) => {
   const getStorageDataUrl = (path)=> {
     return getDownloadURL(storageRef(storage, path));
   }
+  const generateToken = async () => {
+    return await getToken(messaging, {vapidKey: "BKu-83W3zJlU7giQrr5kxfPSs7J9pko6CMB7yesAnMbWFA4cH5GcLNzseEmNxwbPCOmOGDzpv0rcn_91VHye7GY"});
+  }
   return (
     <FirebaseContext.Provider
       value={{
@@ -150,7 +155,9 @@ export const FirebaseProvider = (props) => {
         fetchRealTimeData,
         signUpWithGithub,
         addDataInStorage,
-        getStorageDataUrl
+        getStorageDataUrl,
+        where,
+        generateToken
       }}
     >
       {props.children}
