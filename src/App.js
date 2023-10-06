@@ -5,6 +5,7 @@ import { RegisterPage } from "./pages/Register";
 import { LoginPage } from "./pages/Login";
 import { HomePage } from "./pages/Home";
 import { DetailsPage } from "./pages/Details";
+import { Orders } from "./pages/Orders";
 // components
 import { MyNavBar } from "./components/Navbar";
 import { AddListing } from "./pages/Listing";
@@ -19,6 +20,7 @@ function App() {
       <Route path="/register" element={<RegisterPage/>}/>
       <Route path="/book/addNew" element={<AddListing/>}/>
       <Route path="/book/view/:bookId" element={<DetailsPage/>}/>
+      <Route path="/book/orders" element={<Orders/>}/>
    </Routes>
    </div>
   );

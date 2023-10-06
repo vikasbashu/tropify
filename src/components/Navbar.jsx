@@ -12,6 +12,7 @@ export const MyNavBar = (props) => {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/book/addNew">Add Listing</Nav.Link>
             <Nav.Link href="/support">Support</Nav.Link>
+            <Nav.Link href="/book/orders">My Orders</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
