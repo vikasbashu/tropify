@@ -2,8 +2,8 @@ import React, {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-
 import { useFirebase } from "../context/Firebase"; 
+import { ButtonGroup } from "react-bootstrap";
 
 export const LoginPage = (props) => {
 
@@ -54,9 +54,11 @@ export const LoginPage = (props) => {
             value={password}
           />
         </Form.Group>
+        <ButtonGroup className="">
         <Button variant="primary" type="submit">
           Login
         </Button>
+        </ButtonGroup>
       </Form>
       <Button variant="danger" onClick={loginWithGoogle} className="mt-2">Continue with Google</Button>
     </div> );

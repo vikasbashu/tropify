@@ -2,10 +2,13 @@ import React , {useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import { useFirebase } from "../context/Firebase";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { ToastMessage } from "../components/ToastMessages";
 
 export const DetailsPage = (props) => {
     const params = useParams();
     const firebase = useFirebase();
+    const navigate = useNavigate();
     const [details, setDetails] = useState(null);
     const [url, setUrl] = useState(null);
     useEffect(()=>{
@@ -27,12 +30,12 @@ export const DetailsPage = (props) => {
                 email: details.userDetails.email,
                 name: details.userDetails.displayName
             });
-            alert("Purchased Successfully!");
+            <ToastMessage message={"Purchased Successfully!"} type="Success"/>
+            navigate("/book/orders");
         }catch(error){
-            alert(error.message);
+            <ToastMessage message={error.message} type="Danger"/>
         }
     }
-    console.log(details);
     if(!details) return <h1>Loading...</h1>
     return (
         <div className="container mt-5">

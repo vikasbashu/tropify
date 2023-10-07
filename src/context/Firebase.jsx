@@ -110,7 +110,7 @@ export const FirebaseProvider = (props) => {
     return snap.data();
   }
   const getDocumentsByQuery = async(key, condition) => {
-    const snap = await getDocs(query(collection(firestore, key), condition && where(condition)));
+    const snap = await getDocs(query(collection(firestore, key), condition));
     return snap;
   }
   const updateDocumentRecord = async(key, docId, data) => {
