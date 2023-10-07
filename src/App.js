@@ -9,6 +9,7 @@ import { Orders } from "./pages/Orders";
 // components
 import { MyNavBar } from "./components/Navbar";
 import { AddListing } from "./pages/Listing";
+import { Profile } from "./pages/Profile";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/book/addNew" element={<AddListing/>}/>
       <Route path="/book/view/:bookId" element={<DetailsPage/>}/>
       <Route path="/book/orders" element={<Orders/>}/>
+      <Route path="/me" element={<Profile/>}/>
    </Routes>
    </div>
   );
