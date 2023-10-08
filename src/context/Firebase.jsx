@@ -156,8 +156,7 @@ export const FirebaseProvider = (props) => {
         signUpWithGithub,
         addDataInStorage,
         getStorageDataUrl,
-        where,
-        generateToken
+        where
       }}
     >
       {props.children}
