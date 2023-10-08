@@ -15,7 +15,7 @@ export const HomePage = (props) => {
         }
     }
     useEffect(()=>{
-        requestPermission().then((value)=> console.log(value));
+        //requestPermission().then((value)=> console.log(value));
     }, []);
     useEffect(()=>{
         firebase.getDocumentsByQuery("books").then((books)=>{
